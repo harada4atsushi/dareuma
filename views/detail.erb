@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href='http://fonts.googleapis.com/css?family=Radley' rel='stylesheet' type='text/css'>
+<link href="assets/css/reset.css" rel="stylesheet">
+<link href="assets/css/common.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width; initial-scale=1.0">
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<link rel="shortcut icon" href="assets/ico/favicon.ico">
+<title>だれうま！｜<%= @theme.subject %></title>
+</head>
+<body>
+<header class="clearfix">
+  <div class="container">
+    <p class="header_logo flL"><a href="#"><img alt="だれうま！.com" src="assets/img/img_logo.png"></a></p>
+    <div class="header_login flR">
+      <% if @auth.present? %>
+        <img src="<%= @auth[:image] %>" style="width:50px;"/>
+        <%= @auth[:name] %>&nbsp;
+        <a href="/logout?id=<%= @theme.id %>">ログアウト</a><br />
+      <% else %>
+        <a href="/login?id=<%= @theme.id %>">ログイン</a> 
+      <% end %>
+    </div>
+  </div>
+</header>
+<section id="contents" class="container">
+  <div id="theme">
+    <h1>この英文を誰かうまいこと意訳してください。</h1>
+    <h2><%= @theme.subject %></h2>
+  </div>
+  <form action="/detail" method="post">
+    <div id="post" class="clearfix">
+      <div class="textarea_container">
+        <textarea name="article[content]" placeholder="140字以内で入力してください"></textarea>
+        <input type="hidden" name="article[theme_id]" value="<%= @theme.id %>" />
+      </div>
+      <div class="name_container clearfix">
+        <input type="text" name="article[user_name]" placeholder="ニックネームを入力してください">
+        <input type="submit" value="投稿する"/>
+      </div>
+    </div>
+  </form>
+  <div id="answer">
+    <div class="answer_container">
+      <h3>回答一覧</h3>
+      <ul>
+      <% @articles.each do |article| %>
+        <li class="clearfix">
+          <div class="flL answer_left">
+            <% if article.image %>
+              <img alt=" " src="<%= article.image %>" style="width:60px;">
+            <% else %>
+              <img alt=" " src="assets/img/img_user.png" style="width:60px;">
+              <% end %>
+            <p class="username"><%= article.user_name %></p>
+          </div>
+          <div class="flL  answer_right">
+            <p class="arrow_box">「<%= article.content %>」</p>
+            <div class="answer_right_bottom">
+              <input type="button" value="だれうま！" onclick="location.href='/like?id=<%= article.id %>';">
+              <!-- <a href="/like?id=<%= article.id %>">だれうま！</a> -->
+              <span class="arrow_box"><%= article.likes.count %></span> </div>
+          </div>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+  <div id="nav" class="clearfix">
+    <a class="flL" href="/prev?id=<%= @theme.id %>">&lt;&nbsp;前のお題</a><a class="flR" href="/next?id=<%= @theme.id %>">次のお題&nbsp;&gt;</a>
+    <%#= link_to_next_page @articles, 'Next Page' %>
+    <%#= paginate @articles %>
+  </div>
+</section>
+</body>
+</html>

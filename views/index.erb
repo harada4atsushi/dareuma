@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="javascript/bootstrap.min.js"></script>
+    <style type="text/css">
+      body {
+        padding: 15px;
+        font-size: 14px;
+        font-family: メイリオ,Meiryo,'Lucida Grande','Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3',sans-serif;
+      }
+    </style>
+  </head>
+<body>
+<header></header>
+<form action="/" method="post">
+  アーティスト名：<input type="text" name="artist" /><br />
+  アルバム名：<input type="text" name="album_title" /><br />
+  トラック名：<input type="text" name="track_title" /><br />
+  <input type="submit" value="検索"/><br />
+  <%= @result.class %>
+  取得結果<br />
+  <% @result.each do |rec| %>
+  <table border="1">
+    <tr>
+      <td>アルバムアーティスト名</td>
+      <td><%= rec[:album_artist_name] %>
+    </tr>
+    <tr>
+      <td>アルバムタイトル</td>
+      <td><%= rec[:album_title] %></td>
+    </tr>
+    <tr>
+      <td>ジャンル</td>
+      <td><% rec[:genre].each do |genre| %><%= genre[:text] + "<br />" %><% end %></td>
+    </tr>
+    <tr>
+      <td>アルバムアート</td>
+      <td><img src="<%= rec[:album_art_url][0] %>" /></td>
+    </tr>
+    <tr>
+      <td>アーティスト画像</td>
+      <td><img src="<%= rec[:artist_image_url][0] %>" /></td>
+    </tr>
+  </table>
+  <% end %>
+  <br />
+  <%= @result %>
+</form>
+</body>
+</html>

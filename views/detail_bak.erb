@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="javascript/bootstrap.min.js"></script>
+    <style type="text/css">
+      body {
+        padding: 15px;
+        font-size: 14px;
+        font-family: メイリオ,Meiryo,'Lucida Grande','Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3',sans-serif;
+      }
+    </style>
+  </head>
+<body>
+<header></header>
+<% if @auth.present? %>
+  <img src="<%= @auth[:image] %>" style="width:50px;"/>
+  <%= @auth[:name] %>&nbsp;
+  <a href="/logout">ログアウト</a><br />
+<% else %>
+  <a href="/auth/twitter">ログイン</a> 
+<% end %>
+<br />
+<%= @theme.subject %><br /><br />
+
+<form action="/detail" method="post">
+  回答：<textarea name="article[content]"></textarea><br />
+  投稿者名：<input type="text" name="article[user_name]" /><br />
+  <input type="hidden" name="article[theme_id]" value="<%= @theme.id %>" />
+  <!-- <input type="hidden" name="article[user_id]" value="1" /> -->
+  <input type="submit" value="投稿する"/><br />
+</form>
+
+<% @articles.each do |article| %>
+  <%= article.content %><br />
+  <%= article.user_name %><br />
+  <a href="/like?id=<%= article.id %>">だれうま！</a> <%= article.likes.count %><br /> 
+  <br />
+<% end %>
+
+<a href="/prev?id=<%= @theme.id %>">< 前のお題</a>　<a href="/next?id=<%= @theme.id %>">次のお題 ></a><br />
+<a href="/">TOP</a>
+
+<%#= link_to_next_page @articles, 'Next Page' %>
+<%#= paginate @articles %>
+
+</body>
+</html>

@@ -1,0 +1,196 @@
+body {
+	background: #f7f5ed;
+	font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	padding-bottom: 50px;
+}
+.clearfix {
+ *zoom: 1;
+}
+.clearfix:before, .clearfix:after {
+	display: table;
+	content: "";
+	line-height: 0;
+}
+.clearfix:after {
+	clear: both;
+}
+.container {
+	max-width: 640px;
+	padding: 0 20px;
+	margin: 0 auto;
+}
+.flL {
+	float: left;
+}
+.flR {
+	float: right;
+}
+header {
+	background: #333;
+	color: #fff;
+}
+.header_logo {
+	margin-top: 7px;
+}
+.header_login {
+	margin-top: 14px;
+}
+.header_login a {
+	color: #fff;
+	font-size: 12px;
+}
+#contents {
+	padding: 30px 10px;
+}
+#theme {
+}
+#theme h1 {
+	font-size: 20px;
+	text-align: center;
+	margin-bottom: 26px;
+}
+#theme h2 {
+	font-family: 'Radley', serif;
+	padding: 30px;
+	text-align: center;
+	background-color: #fff;
+	-webkit-box-shadow: 6px 6px #e6e3d6;
+	-moz-box-shadow: 6px 6px #e6e3d6;
+	box-shadow: 6px 6px #e6e3d6;
+	border: solid 1px #ddd3ab;
+	font-size: 50px;
+	font-weight: bold;
+}
+#post {
+	margin-top: 50px;
+}
+#post textarea {
+	width: 95%;
+	height: 100px;
+	padding: 10px;
+	border: solid 1px #ddd;
+}
+#post .textarea_container {
+	width: 80%;
+	text-align: center;
+	margin: 0 auto;
+}
+#post .name_container {
+	width: 80%;
+	margin: 10px auto;
+	text-align: center;
+}
+#post input[type="text"] {
+	width: 50%;
+	padding: 4px 10px 3px;
+	float: left;
+	border: solid 1px #ddd;
+}
+#post input[type="button"] {
+	float: right;
+	width: 100px;
+	height: 34px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background-color: #c3512f;
+	color: #ffffff;
+	color: #fff;
+	font-size: 15px;
+	text-shadow: 0 -1px rgba(0,0,0,.2);
+	border: none;
+	cursor: pointer;
+}
+#post input[type="button"]:hover {
+	background: #eb5427;
+}
+#answer {
+	padding-top: 30px;
+}
+#answer .username {
+	font-size: 11px;
+}
+#answer input[type="button"] {
+	width: 100px;
+	height: 28px;
+	line-height: 24px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background-color: #3d477f;
+	color: #ffffff;
+	color: #fff;
+	font-size: 15px;
+	text-shadow: 0 -1px rgba(0,0,0,.2);
+	border: none;
+	cursor: pointer;
+}
+#answer input[type="button"]:hover {
+	background-color: #3a4cbd;
+}
+.arrow_box {
+	position: relative;
+	background: #ffffff;
+	border: 1px solid #dddddd;
+}
+.arrow_box:after, .arrow_box:before {
+	right: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+.arrow_box:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-right-color: #ffffff;
+	border-width: 6px;
+	top: 50%;
+	margin-top: -6px;
+}
+.arrow_box:before {
+	border-color: rgba(221, 221, 221, 0);
+	border-right-color: #dddddd;
+	border-width: 7px;
+	top: 50%;
+	margin-top: -7px;
+}
+.answer_container {
+	width: 80%;
+	margin: 10px auto;
+}
+.answer_container h3 {
+	margin: 20px 0;
+	font-size: 13px;
+	background: #666;
+	letter-spacing: 1px;
+	color: #fff;
+	padding: 4px 12px 2px;
+}
+.answer_container li {
+	margin-bottom: 25px;
+}
+.answer_left {
+	width: 15%;
+}
+.answer_right {
+	width: 85%;
+}
+.answer_right p {
+	padding: 12px 10px 8px;
+}
+.answer_right_bottom {
+	margin-top: 10px;
+}
+.answer_right_bottom span {
+	padding: 5px 10px;
+	margin-left: 5px;
+}
+#nav {
+	padding-top: 30px;
+}
+#nav a {
+	color: #333;
+	font-size: 12px;
+}

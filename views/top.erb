@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="javascript/bootstrap.min.js"></script>
+    <style type="text/css">
+      body {
+        padding: 15px;
+        font-size: 14px;
+        font-family: メイリオ,Meiryo,'Lucida Grande','Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3',sans-serif;
+      }
+    </style>
+  </head>
+<body>
+<header></header>
+
+<% @themes.each do |theme| %>
+  <a href="/detail?id=<%= theme.id %>"><%= theme.subject %><br />
+  <br />
+<% end %>
+
+</body>
+</html>
