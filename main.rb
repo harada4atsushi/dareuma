@@ -10,6 +10,7 @@ require "omniauth-twitter"
 
 helpers Kaminari::Helpers::SinatraHelpers
 config = YAML.load_file( 'config.yml' )
+database = YAML.load_file( 'database.yml' )
 enable :sessions
 
 # OmniAuth の設定
@@ -19,11 +20,11 @@ use OmniAuth::Builder do
 end
 
 ActiveRecord::Base.establish_connection({
-  :adapter   => "mysql2",
-  :database  => "dareuma",
-  :username => "root",
-  :pool => 5,
-  :encoding => "utf8",
+  :adapter   => database["adapter"],
+  :database  => database["database"],
+  :username => database["username"],
+  :pool => database["pool"],
+  :encoding => database["encoding"],
 })
 
 Dir[File.join(File.dirname(__FILE__), "models", "**/*.rb")].each do |f|

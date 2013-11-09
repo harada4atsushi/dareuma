@@ -1,5 +1,5 @@
 body {
-	background: #f7f5ed;
+	background: #f7f5ed url(../img/bg.png);
 	font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
 	padding-bottom: 50px;
 }
@@ -41,6 +41,49 @@ header {
 }
 #contents {
 	padding: 30px 10px;
+}
+#intro {
+	width: 100%;
+	min-height: 120px;
+	
+}
+#intro .en {
+	font-family: 'Radley', serif;
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 4px;
+}
+#toppage h1 {
+	margin: 20px 0 10px;
+	background: #666;
+	color: #fff;
+	padding: 5px 10px 2px;
+}
+#toppage ul li {
+	width: 32%;
+	float: left;
+	margin-bottom: 4px;
+	font-family: 'Radley', serif;
+	text-align: center;
+	background-color: #fff;
+	-webkit-box-shadow: 6px 6px #e6e3d6;
+	-moz-box-shadow: 6px 6px #e6e3d6;
+	box-shadow: 6px 6px #e6e3d6;
+	border: solid 1px #ddd3ab;
+	font-size: 20px;
+	font-weight: bold;
+}
+#toppage ul li:hover {
+	background-color: #e29f9f;
+}
+#toppage ul li:hover a {
+	color: #fff;
+}
+#toppage ul li a {
+	display: block;
+	padding: 25px;
+	text-decoration: none;
+	color: #333;
 }
 #theme {
 }

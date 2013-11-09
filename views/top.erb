@@ -1,24 +1,51 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link href="css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="javascript/bootstrap.min.js"></script>
-    <style type="text/css">
-      body {
-        padding: 15px;
-        font-size: 14px;
-        font-family: メイリオ,Meiryo,'Lucida Grande','Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3',sans-serif;
-      }
-    </style>
-  </head>
+<head>
+<meta charset="UTF-8">
+<link href='http://fonts.googleapis.com/css?family=Radley' rel='stylesheet' type='text/css'>
+<link href="assets/css/reset.css" rel="stylesheet">
+<link href="assets/css/common.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width; initial-scale=1.0">
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<link rel="shortcut icon" href="assets/ico/favicon.ico">
+
+<title>だれうま！｜トップ</title>
+
+</head>
 <body>
-<header></header>
+<header class="clearfix">
+  <div class="container">
+    <p class="header_logo flL"><a href="#"><img alt="だれうま！.com" src="assets/img/img_logo.png"></a></p>
+    <div class="header_login flR"> <!-- <a href="">ログイン</a>--> </div>
+  </div>
+</header>
+<section id="contents" class="container">
+  <div id="intro">
+    <img alt="" src="assets/img/img_toppage.png">
+  </div>
+  <div id="toppage">
+    <h1>お題一覧</h1>
 
-<% @themes.each do |theme| %>
-  <a href="/detail?id=<%= theme.id %>"><%= theme.subject %><br />
-  <br />
-<% end %>
-
+    <ul id="container" class="clearfix">
+      <% @themes.each do |theme| %>
+        <li class="item"><a href="/detail?id=<%= theme.id %>"><%= theme.subject %></a></li>
+      <% end %>
+    </ul>
+  </div>
+</section>
+<div id="container" class="js-masonry"  data-masonry-options='{ "columnWidth": 200, "itemSelector": ".item" }'>
 </body>
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/masonry.pkgd.min.js"></script>
+<script type="text/javascript">
+var $container = $('#container');
+// initialize
+$container.masonry({
+  columnWidth: 213,
+  itemSelector: '.item'
+  });
+</script>
 </html>
