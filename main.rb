@@ -25,6 +25,7 @@ ActiveRecord::Base.establish_connection({
   :username => database["username"],
   :pool => database["pool"],
   :encoding => database["encoding"],
+  :password => database["password"],
 })
 
 Dir[File.join(File.dirname(__FILE__), "models", "**/*.rb")].each do |f|
