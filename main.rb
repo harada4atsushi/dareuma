@@ -9,14 +9,14 @@ require "omniauth"
 require "omniauth-twitter"
 
 helpers Kaminari::Helpers::SinatraHelpers
-config = YAML.load_file( 'config.yml' )
+$config = YAML.load_file( 'config.yml' )
 database = YAML.load_file( 'database.yml' )
 enable :sessions
 
 # OmniAuth の設定
 use OmniAuth::Builder do
   # Twitter の OAuth を使う
-  provider :twitter, config["twitter"]["consumer_key"], config["twitter"]["consumer_secret"]
+  provider :twitter, $config["twitter"]["consumer_key"], $config["twitter"]["consumer_secret"]
 end
 
 ActiveRecord::Base.establish_connection({

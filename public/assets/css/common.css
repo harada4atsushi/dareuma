@@ -44,8 +44,8 @@ header {
 }
 #intro {
 	width: 100%;
-	min-height: 120px;
-	
+	text-align: center;
+	margin-top: 20px;
 }
 #intro .en {
 	font-family: 'Radley', serif;
@@ -54,7 +54,7 @@ header {
 	margin-bottom: 4px;
 }
 #toppage h1 {
-	margin: 20px 0 10px;
+	margin: -15px 0 10px;
 	background: #666;
 	color: #fff;
 	padding: 5px 10px 2px;
@@ -236,4 +236,67 @@ header {
 #nav a {
 	color: #333;
 	font-size: 12px;
+}
+
+@media screen and (max-width: 1000px) {
+}
+
+@media screen and (max-width: 640px) {
+#intro {
+	margin-top: 0;
+}
+#intro img {
+	width: 100%;
+}
+#toppage ul li {
+}
+}
+@media screen and (max-width: 480px) {
+.header_logo img {
+	width: 70%;
+	margin-left: -6px;
+}
+.header_login {
+	margin-top: 7px;
+}
+#theme h1 {
+	font-size: 18px;
+	margin-bottom: 15px;
+}
+#intro {
+	margin-top: 0;
+}
+#intro img {
+	width: 100%;
+}
+#toppage ul li {
+	width: 100%;
+}
+#toppage h1 {
+	margin: 10px 0 10px;
+}
+#theme h2 {
+	font-size: 36px;
+}
+#post {
+	margin-top: 22px;
+}
+#post .textarea_container {
+	width: 90%;
+}
+#post .name_container {
+	width: 90%;
+}
+.answer_container {
+	width: 90%;
+}
+.answer_right {
+	width: 74%;
+	margin-left: 28px;
+}
+#toppage {
+	margin-top: -35px;
+}
+@media screen and (max-width: 320px) {
+...
 }
