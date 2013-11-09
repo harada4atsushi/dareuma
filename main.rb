@@ -2,6 +2,7 @@
 require 'bundler/setup'
 Bundler.require
 require 'sinatra'
+require 'sinatra/base'
 require 'sinatra/activerecord'
 require 'yaml'
 require 'kaminari/sinatra'
@@ -32,6 +33,7 @@ Dir[File.join(File.dirname(__FILE__), "models", "**/*.rb")].each do |f|
   require f
 end
 
+class Main < Sinatra::Base
 get '/detail' do
   user_id = request.cookies['user_id']
   response.set_cookie("user_id", random_str) unless user_id
@@ -115,4 +117,5 @@ def random_str
       a[rand(a.size)]
     end
     ).join
+end
 end
