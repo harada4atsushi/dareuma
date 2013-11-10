@@ -163,6 +163,7 @@ float: right;
 	border: none;
 	cursor: pointer;
 	line-height: 36px;
+	-webkit-appearance: none;
 }
 #post input[type="button"]:hover {
 	background: #eb5427;
@@ -187,6 +188,7 @@ float: right;
 	text-shadow: 0 -1px rgba(0,0,0,.2);
 	border: none;
 	cursor: pointer;
+	-webkit-appearance: none;
 }
 #answer input[type="button"]:hover {
 	background-color: #3a4cbd;
@@ -278,6 +280,9 @@ float: right;
 }
 .header_login {
 	margin-top: 7px;
+}
+.header_login img{
+	display:none;
 }
 #theme h1 {
 	font-size: 18px;
