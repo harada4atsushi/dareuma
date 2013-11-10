@@ -19,9 +19,8 @@
     <p class="header_logo flL"><a href="/"><img alt="だれうま！.com" src="assets/img/img_logo.png"></a></p>
     <div class="header_login flR">
       <% if @auth.present? %>
-        <img src="<%= @auth[:image] %>" style="width:50px;"/>
-        <%= @auth[:name] %>&nbsp;
-        <a href="/logout?id=<%= @theme.id %>">ログアウト</a><br />
+        <img src="<%= @auth[:image] %>" /><span><%= @auth[:name] %>&nbsp;<a href="/logout?id=<%= @theme.id %>">ログアウト</a></span>
+        <br />
       <% else %>
         <a href="/login?id=<%= @theme.id %>">ログイン</a> 
       <% end %>
