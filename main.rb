@@ -9,18 +9,8 @@ require 'kaminari/sinatra'
 require "omniauth"
 require "omniauth-twitter"
 
-helpers Kaminari::Helpers::SinatraHelpers
-$config = YAML.load_file( 'config.yml' )
-database = YAML.load_file( 'database.yml' )
 
-ActiveRecord::Base.establish_connection({
-  :adapter   => database["adapter"],
-  :database  => database["database"],
-  :username => database["username"],
-  :pool => database["pool"],
-  :encoding => database["encoding"],
-  :password => database["password"],
-})
+
 
 Dir[File.join(File.dirname(__FILE__), "models", "**/*.rb")].each do |f|
   require f
@@ -32,8 +22,22 @@ class Main < Sinatra::Base
     # Twitter の OAuth を使う
     provider :twitter, $config["twitter"]["consumer_key"], $config["twitter"]["consumer_secret"]
   end
-  enable :sessions
 
+  configure do
+    enable :sessions
+    helpers Kaminari::Helpers::SinatraHelpers
+    $config = YAML.load_file( 'config.yml' )
+    database = YAML.load_file( 'database.yml' )
+    ActiveRecord::Base.establish_connection({
+      :adapter   => database["adapter"],
+      :database  => database["database"],
+      :username => database["username"],
+      :pool => database["pool"],
+      :encoding => database["encoding"],
+      :password => database["password"],
+    })
+  end
+  
   get '/detail' do
     user_id = request.cookies['user_id']
     response.set_cookie("user_id", random_str) unless user_id
