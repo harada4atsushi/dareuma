@@ -37,6 +37,10 @@ class Main < Sinatra::Base
       :password => database["password"],
     })
   end
+
+  after do
+    ActiveRecord::Base.connection.close
+  end
   
   get '/detail' do
     user_id = request.cookies['user_id']
