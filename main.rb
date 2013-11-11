@@ -1,22 +1,16 @@
 # coding:utf-8
-require 'bundler/setup'
-Bundler.require
-require 'sinatra'
-require 'sinatra/base'
-require 'sinatra/activerecord'
 require 'yaml'
 require 'kaminari/sinatra'
 require "omniauth"
 require "omniauth-twitter"
-
-
-
 
 Dir[File.join(File.dirname(__FILE__), "models", "**/*.rb")].each do |f|
   require f
 end
 
 class Main < Sinatra::Base
+  register Sinatra::Reloader
+
   # OmniAuth の設定
   use OmniAuth::Builder do
     # Twitter の OAuth を使う
@@ -41,7 +35,7 @@ class Main < Sinatra::Base
   after do
     ActiveRecord::Base.connection.close
   end
-  
+
   get '/detail' do
     user_id = request.cookies['user_id']
     response.set_cookie("user_id", random_str) unless user_id
@@ -58,7 +52,7 @@ class Main < Sinatra::Base
     # TODO 投稿と同時につぶやく
     user_id = session[:twitter][:uid] if session[:twitter]
     user_id = request.cookies['user_id'] unless user_id
-    #user_id = 
+    #user_id =
     @article = Article.new(params[:article])
     @article.user_id = user_id
     @article.image = session[:twitter][:image] if session[:twitter]
@@ -118,7 +112,7 @@ class Main < Sinatra::Base
     redirect "/detail?id=#{params[:id]}"
   end
 
-  def random_str 
+  def random_str
     a = ('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a
     code = (
       Array.new(32) do
