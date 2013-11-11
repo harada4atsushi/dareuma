@@ -40,7 +40,7 @@
       </div>
       <div class="name_container clearfix">
         <input type="text" name="article[user_name]" placeholder="ニックネームを入力してください">
-        <input type="button" value="投稿する" onclick="window.open('http://twitter.com/share?url=http://<%=$config["host"]%>/detail?id=<%=@theme.id%>&text=“<%=@theme.subject%>”の意訳をだれうま.comに投稿しました。 #だれうま', 'twitter_tweet', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); submit();"/>
+        <input type="button" value="投稿する" onclick="window.open('http://twitter.com/share?url=<%=$config["host"]%>/detail?id=<%=@theme.id%>&text=“<%=@theme.subject%>”の意訳をだれうま.comに投稿しました。 #だれうま', 'twitter_tweet', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); submit();"/>
       </div>
     </div>
   </form>
