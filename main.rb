@@ -1,5 +1,5 @@
 # coding:utf-8
-require 'yaml'
+
 require 'kaminari/sinatra'
 require "omniauth"
 require "omniauth-twitter"
@@ -110,6 +110,10 @@ class Main < Sinatra::Base
   get "/logout" do
     session[:twitter] = nil
     redirect "/detail?id=#{params[:id]}"
+  end
+
+  get "/developers" do
+    erb :developers
   end
 
   def random_str

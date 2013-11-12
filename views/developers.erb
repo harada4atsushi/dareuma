@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href='http://fonts.googleapis.com/css?family=Radley' rel='stylesheet' type='text/css'>
+<link href="assets/css/reset.css" rel="stylesheet">
+<link href="assets/css/common.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width; initial-scale=1.0">
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<link rel="shortcut icon" href="assets/img/favicon.png">
+<meta property="og:title" content="だれうま！"/>
+<meta property="og:site_name" content="だれうま！"/>
+<meta property="og:description" content="その足りない頭で気の利いた和訳でも作ってみろっての！"/>
+<meta property="og:image" content="http://dare-uma.com/assets/img/img_user.png"/>
+<meta property="og:url" content="http://dare-uma.com/"/>
+<meta property="og:type" content="website"/>
+<title>だれうま！｜作った人情報</title>
+
+</head>
+<body>
+<header class="clearfix">
+  <div class="container">
+    <p class="header_logo flL"><a href="/"><img alt="だれうま！.com" src="assets/img/img_logo.png"></a></p>
+    <div class="header_login flR"> <!-- <a href="">ログイン</a>--> </div>
+  </div>
+</header>
+<div id="intro">
+</div>
+<section id="contents" class="container">
+  <table class="developers">
+    <tr>
+      <td><img alt=" " src="assets/img/img_user.png" /></td>
+      <td>
+        Y.Ohori<br />
+        デザイナー<br />
+      </td>
+    </tr>
+    <tr>
+      <td><img alt=" " src="assets/img/harada_atsushi.jpeg" /></td>
+      <td>
+        原田 敦　プログラマ<br />
+        <a href="https://twitter.com/harada4atsushi" target="_blank"><img src="assets/img/icon/twitter.png" class="icon" /></a>
+        <a href="https://www.facebook.com/harada.at.sea4" target="_blank"><img src="assets/img/icon/facebook500.png" class="icon" /></a>
+        <a href="https://github.com/harada4atsushi" target="_blank"><img src="assets/img/icon/github.png" class="icon" /></a>
+        <br />
+        日本CAWという会社でプログラマやってます。趣味でふざけたWEBサービスとか作ったりします。<br />
+        得意分野はRuby on RailsやCakePHPを使った小規模WEBアプリケーションを高速で開発すること。たまにiOS, Androidアプリを作ることもあります。<br />
+        週末の楽しみは一人お菓子パーティー。三度の飯より小動物をもふもふするのが好きです。<br />
+        <br />
+        もふもふ部（技術ブログ）<br />
+        <a href="http://j-caw.co.jp/blog/" target="_blank">http://j-caw.co.jp/blog/</a><br />
+        <br />
+        はらぱん.info（個人サイト＆ブログ）<br />
+        <a href="http://harada-atsushi.info/" target="_blank">http://harada-atsushi.info/</a><br />
+        <br />
+        飲み会脱出サービス - スマートエスケープ<br />
+        <a href="https://smart-escape.net/" target="_blank">https://smart-escape.net/</a><br />
+      </td>
+    </tr>
+  </table>
+</section>
+<footer>
+  <div class="container">
+    <a href="developers">作った人情報</a><br />
+    Copyright (C) 2013 y.ohori and a.harada All Rights Reserved.
+  </div>
+</footer>
+<div id="container" class="js-masonry"  data-masonry-options='{ "columnWidth": 200, "itemSelector": ".item" }'></div>
+</body>
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/masonry.pkgd.min.js"></script>
+<script type="text/javascript">
+var $container = $('#container');
+// initialize
+$container.masonry({
+  columnWidth: 213,
+  itemSelector: '.item'
+  });
+</script>
+</html>
