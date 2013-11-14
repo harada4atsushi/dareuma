@@ -3,6 +3,8 @@
 require 'kaminari/sinatra'
 require "omniauth"
 require "omniauth-twitter"
+require "sinatra/content_for"
+
 
 Dir[File.join(File.dirname(__FILE__), "models", "**/*.rb")].each do |f|
   require f
@@ -34,6 +36,11 @@ class Main < Sinatra::Base
 
   after do
     ActiveRecord::Base.connection.close
+  end
+
+  get '/' do
+    @themes = Theme.where(nil).order(:id)
+    erb :index
   end
 
   get '/detail' do
@@ -81,11 +88,6 @@ class Main < Sinatra::Base
   get '/prev' do
     @theme = Theme.where("id < ?", params[:id]).first
     redirect @theme ? "/detail?id=#{@theme.id}" : "/"
-  end
-
-  get '/' do
-    @themes = Theme.where(nil).order(:id)
-    erb :top
   end
 
   # Twitter の認証が成功したら呼び出される

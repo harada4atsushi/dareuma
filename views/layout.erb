@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href='http://fonts.googleapis.com/css?family=Radley' rel='stylesheet' type='text/css'>
+<link href="assets/css/reset.css" rel="stylesheet">
+<link href="assets/css/common.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width; initial-scale=1.0">
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<link rel="shortcut icon" href="assets/img/favicon.png">
+<meta property="og:title" content="だれうま！"/>
+<meta property="og:site_name" content="だれうま！"/>
+<meta property="og:description" content="その足りない頭で気の利いた和訳でも作ってみろっての！"/>
+<meta property="og:image" content="http://dare-uma.com/assets/img/img_user.png"/>
+<meta property="og:url" content="http://dare-uma.com/"/>
+<meta property="og:type" content="website"/>
+<title><%= yield_content :title %></title>
+</head>
+<body>
+  <header class="clearfix">
+    <div class="container">
+      <p class="header_logo flL"><a href="/"><img alt="だれうま！.com" src="assets/img/img_logo.png"></a></p>
+      <!--<div class="header_login flR">
+        <%# if @auth.present? %>
+          <img src="<%#= @auth[:image] %>" /><span><%#= @auth[:name] %>&nbsp;<a href="/logout?id=<%#= @theme.id %>">ログアウト</a></span>
+          <br />
+        <%# else %>
+          <a href="/login?id=<%#= @theme.id %>">ログイン</a>
+        <%# end %>
+      </div>
+    -->
+    </div>
+  </header>
+
+  <%= yield %>
+
+  <footer>
+    <div class="container">
+      <a href="developers">作った人情報</a><br />
+      Copyright (C) 2013 Y.Ohori and A.Harada All Rights Reserved.
+    </div>
+  </footer>
+  <div id="container" class="js-masonry"  data-masonry-options='{ "columnWidth": 200, "itemSelector": ".item" }'></div>
+  </body>
+  <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+  <script type="text/javascript" src="assets/js/masonry.pkgd.min.js"></script>
+  <script type="text/javascript">
+  var $container = $('#container');
+  // initialize
+  $container.masonry({
+    columnWidth: 213,
+    itemSelector: '.item'
+    });
+  </script>
+</html>
