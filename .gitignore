@@ -1,3 +1,5 @@
 config.yml
 .rvmrc
 .DS_Store
+.bundle
+vendor/bundle/
