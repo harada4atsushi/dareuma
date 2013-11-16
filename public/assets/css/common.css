@@ -273,12 +273,23 @@ footer a {
 	vertical-align: top;
 }
 .developers img {
-	width: 120px;
-	eight: 120px;
+	width: 100%;
 }
 .developers .icon {
 	width: 30px;
 	height: 30px;
+}
+.developer{
+	margin-bottom: 50px;
+}
+.dev_image{
+	width: 20%;
+	padding-right: 15px;
+	float: left;
+}
+.dev_txt{
+	width: 75%;
+	float: left;
 }
 @media screen and (max-width: 1000px) {
 }
@@ -341,6 +352,17 @@ footer a {
 }
 #toppage {
 	margin-top: -35px;
+}
+.dev_image{
+	width: 50%;
+	margin: 0 auto 10px;
+	float: none;
+}
+
+.dev_txt{
+	width: 90%;
+	margin: 0 auto 10px;
+	float: none;
 }
 @media screen and (max-width: 320px) {
 ...
