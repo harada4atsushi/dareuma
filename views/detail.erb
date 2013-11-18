@@ -12,7 +12,8 @@
       </div>
       <div class="name_container clearfix">
         <input type="text" name="article[user_name]" placeholder="ニックネームを入力してください">
-        <input type="button" value="投稿する" onclick="window.open('http://twitter.com/share?url=<%=$config["host"]%>/detail?id=<%=@theme.id%>&text=“<%=@theme.subject%>”の意訳をだれうま.comに投稿しました。 #だれうま', 'twitter_tweet', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); submit();"/>
+        <!--<input type="button" value="投稿する" onclick="window.open('http://twitter.com/share?url=<%=$config["host"]%>/detail?id=<%=@theme.id%>&text=“<%=@theme.subject%>”の意訳をだれうま.comに投稿しました。 #だれうま', 'twitter_tweet', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); submit();"/>-->
+        <input type="button" value="投稿する" onclick="submit();" />
       </div>
     </div>
   </form>
@@ -45,6 +46,6 @@
   <div id="nav" class="clearfix">
     <a class="flL" href="/prev?id=<%= @theme.id %>">&lt;&nbsp;前のお題</a><a class="flR" href="/next?id=<%= @theme.id %>">次のお題&nbsp;&gt;</a>
     <%#= link_to_next_page @articles, 'Next Page' %>
-    <%#= paginate @articles %>
+    <%#= paginate @arts %>
   </div>
 </section>

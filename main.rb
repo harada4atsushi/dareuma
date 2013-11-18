@@ -1,10 +1,8 @@
 # coding:utf-8
-
 require 'kaminari/sinatra'
 require "omniauth"
 require "omniauth-twitter"
 require "sinatra/content_for"
-
 
 Dir[File.join(File.dirname(__FILE__), "models", "**/*.rb")].each do |f|
   require f
@@ -21,7 +19,7 @@ class Main < Sinatra::Base
 
   configure do
     enable :sessions
-    helpers Kaminari::Helpers::SinatraHelpers
+    #helpers Kaminari::Helpers::SinatraHelpers
     $config = YAML.load_file( 'config.yml' )
     database = YAML.load_file( 'database.yml' )
     ActiveRecord::Base.establish_connection({
@@ -51,15 +49,14 @@ class Main < Sinatra::Base
     @theme = Theme.find(id)
     @articles = Article.where(:theme_id => id).joins("
     left outer join (select count(*) as likes_count, article_id from likes group by article_id) as likes on articles.id = likes.article_id")
-      .order("likes_count desc") #.page(params[:page]).per(5)
+      .order("likes_count desc").page(params[:page]).per(5)
+    @arts = Article.where(nil).page(params[:page]).per(5)
     erb :detail
   end
 
   post '/detail' do
-    # TODO 投稿と同時につぶやく
     user_id = session[:twitter][:uid] if session[:twitter]
     user_id = request.cookies['user_id'] unless user_id
-    #user_id =
     @article = Article.new(params[:article])
     @article.user_id = user_id
     @article.image = session[:twitter][:image] if session[:twitter]
