@@ -132,32 +132,32 @@ footer a {
 	font-size: 50px;
 	font-weight: bold;
 }
-#post {
+.post {
 	margin-top: 50px;
 }
-#post textarea {
+.post textarea {
 	width: 95%;
 	height: 100px;
 	padding: 10px;
 	border: solid 1px #ddd;
 }
-#post .textarea_container {
+.post .textarea_container {
 	width: 80%;
 	text-align: center;
 	margin: 0 auto;
 }
-#post .name_container {
+.post .name_container {
 	width: 80%;
 	margin: 10px auto;
 	text-align: center;
 }
-#post input[type="text"] {
+.post input[type="text"] {
 	width: 50%;
 	padding: 4px 10px 3px;
 	float: left;
 	border: solid 1px #ddd;
 }
-#post input[type="button"] {
+.post input[type="button"] {
 	float: right;
 	width: 100px;
 	height: 34px;
@@ -173,7 +173,7 @@ footer a {
 	line-height: 36px;
 	-webkit-appearance: none;
 }
-#post input[type="button"]:hover {
+.post input[type="button"]:hover {
 	background: #eb5427;
 }
 #answer {
@@ -334,13 +334,13 @@ footer a {
 #theme h2 {
 	font-size: 36px;
 }
-#post {
+.post {
 	margin-top: 22px;
 }
-#post .textarea_container {
+.post .textarea_container {
 	width: 90%;
 }
-#post .name_container {
+.post .name_container {
 	width: 90%;
 }
 .answer_container {

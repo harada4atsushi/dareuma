@@ -11,9 +11,7 @@ class Main < Sinatra::Base
   register Sinatra::Reloader
   helpers Sinatra::ContentFor
 
-  # OmniAuth の設定
   use OmniAuth::Builder do
-    # Twitter の OAuth を使う
     provider :twitter, $config["twitter"]["consumer_key"], $config["twitter"]["consumer_secret"]
   end
 
@@ -87,22 +85,19 @@ class Main < Sinatra::Base
     redirect @theme ? "/detail?id=#{@theme.id}" : "/"
   end
 
-  # Twitter の認証が成功したら呼び出される
   get "/auth/:provider/callback" do
-    # 認証情報は request.env に格納されている
-    theme_id = request.cookies['theme_id']
+    back_url = request.cookies['back_url'] || "/"
     auth = request.env["omniauth.auth"]
-    puts auth[:info][:image].to_yaml
     session[:twitter] = {
       :uid => auth[:uid],
       :name => auth[:info][:name],
       :image => auth[:info][:image],
     }
-    redirect "/detail?id=#{theme_id}"
+    redirect back_url
   end
 
-  get "/login" do
-    response.set_cookie("theme_id", params[:id])
+  post "/login" do
+    response.set_cookie("back_url", params[:back_url])
     redirect "/auth/twitter"
   end
 

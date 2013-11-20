@@ -5,7 +5,7 @@
     <h2><%= @theme.subject %></h2>
   </div>
   <form action="/detail" method="post">
-    <div id="post" class="clearfix">
+    <div class="post" class="clearfix">
       <div class="textarea_container">
         <textarea name="article[content]" placeholder="140字以内で入力してください"></textarea>
         <input type="hidden" name="article[theme_id]" value="<%= @theme.id %>" />
@@ -16,6 +16,17 @@
         <input type="button" value="投稿する" onclick="submit();" />
       </div>
     </div>
+    <!--
+    <div class="post" class="clearfix">
+      <div class="textarea_container">
+        <textarea name="article[content]" style="height:70px;" placeholder="140字以内で入力してください">”<%=@theme.subject%>”の意訳をだれうま.comに投稿しました。<%=$config["host"]%>/detail?id=<%=@theme.id%> #だれうま</textarea>
+        <input type="hidden" name="article[theme_id]" value="<%= @theme.id %>" />
+      </div>
+      <div class="name_container clearfix">
+        <input type="button" value="Tweet" />
+      </div>
+    </div>
+  -->
   </form>
   <div id="answer">
     <div class="answer_container">
