@@ -2,7 +2,6 @@
 require 'kaminari/sinatra'
 require "omniauth"
 require "omniauth-twitter"
-require "sinatra/content_for"
 
 Dir[File.join(File.dirname(__FILE__), "models", "**/*.rb")].each do |f|
   require f
@@ -10,6 +9,7 @@ end
 
 class Main < Sinatra::Base
   register Sinatra::Reloader
+  helpers Sinatra::ContentFor
 
   # OmniAuth の設定
   use OmniAuth::Builder do
