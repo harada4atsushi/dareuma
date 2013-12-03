@@ -28,6 +28,17 @@ class Main < Sinatra::Base
       :encoding => database["encoding"],
       :password => database["password"],
     })
+
+    $client = Twitter::REST::Client.new do |cnf|
+      cnf.consumer_key = $config["twitter"]["consumer_key"]
+      cnf.consumer_secret = $config["twitter"]["consumer_secret"]
+      cnf.oauth_token = $config["twitter"]["oauth_token"]
+      cnf.oauth_token_secret = $config["twitter"]["oauth_token_secret"]
+    end
+  end
+
+  before do
+    @auth = session[:twitter]
   end
 
   after do
@@ -40,10 +51,9 @@ class Main < Sinatra::Base
   end
 
   get '/detail' do
-    user_id = request.cookies['user_id']
-    response.set_cookie("user_id", random_str) unless user_id
+    #user_id = request.cookies['user_id']
+    #response.set_cookie("user_id", random_str) unless user_id
     id = params[:id] ? params[:id] : 1
-    @auth = session[:twitter]
     @theme = Theme.find(id)
     @articles = Article.where(:theme_id => id).joins("
     left outer join (select count(*) as likes_count, article_id from likes group by article_id) as likes on articles.id = likes.article_id")
@@ -53,25 +63,29 @@ class Main < Sinatra::Base
   end
 
   post '/detail' do
-    user_id = session[:twitter][:uid] if session[:twitter]
-    user_id = request.cookies['user_id'] unless user_id
+    #user_id = request.cookies['user_id'] unless user_id
     @article = Article.new(params[:article])
-    @article.user_id = user_id
+    @article.twitter_uid = session[:twitter][:uid] if session[:twitter]
     @article.image = session[:twitter][:image] if session[:twitter]
     @article.save
     redirect "/detail?id=#{@article.theme_id}"
   end
 
   get '/like' do
-    user_id = session[:twitter][:uid] if session[:twitter]
-    user_id = request.cookies['user_id'] unless user_id
-    @like = Like.where(:article_id => params[:id], :user_id => user_id).first
-    @article = Article.where(:id => params[:id]).first
-    if @like.present?
-      @like.destroy
-    else
-      Like.create(:article_id => params[:id], :user_id => user_id)
+    begin
+      #$client.update("@harada4atsushi yeah!!")
+    rescue
     end
+    uid = session[:twitter][:uid] if session[:twitter]
+    #user_id = request.cookies['user_id'] unless user_id
+    @like = Like.where(:article_id => params[:id], :user_id => uid).first
+    @article = Article.where(:id => params[:id]).first
+    #if @like.present?
+    #  @like.destroy
+    #else
+
+    Like.create(:article_id => params[:id], :user_id => uid)
+    #end
     redirect "/detail?id=#{@article.theme_id}"
   end
 
