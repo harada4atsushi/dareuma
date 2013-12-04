@@ -1,48 +1,11 @@
 # coding:utf-8
-require 'kaminari/sinatra'
-require "omniauth"
-require "omniauth-twitter"
-
-Dir[File.join(File.dirname(__FILE__), "models", "**/*.rb")].each do |f|
-  require f
-end
-
 class Main < Sinatra::Base
+  use MainConfig
   register Sinatra::Reloader
   helpers Sinatra::ContentFor
 
-  use OmniAuth::Builder do
-    provider :twitter, $config["twitter"]["consumer_key"], $config["twitter"]["consumer_secret"]
-  end
-
-  configure do
-    enable :sessions
-    #helpers Kaminari::Helpers::SinatraHelpers
-    $config = YAML.load_file( 'config.yml' )
-    database = YAML.load_file( 'database.yml' )
-    ActiveRecord::Base.establish_connection({
-      :adapter   => database["adapter"],
-      :database  => database["database"],
-      :username => database["username"],
-      :pool => database["pool"],
-      :encoding => database["encoding"],
-      :password => database["password"],
-    })
-
-    $client = Twitter::REST::Client.new do |cnf|
-      cnf.consumer_key = $config["twitter"]["consumer_key"]
-      cnf.consumer_secret = $config["twitter"]["consumer_secret"]
-      cnf.oauth_token = $config["twitter"]["oauth_token"]
-      cnf.oauth_token_secret = $config["twitter"]["oauth_token_secret"]
-    end
-  end
-
   before do
     @auth = session[:twitter]
-  end
-
-  after do
-    ActiveRecord::Base.connection.close
   end
 
   get '/' do
@@ -72,20 +35,27 @@ class Main < Sinatra::Base
   end
 
   get '/like' do
-    begin
-      #$client.update("@harada4atsushi yeah!!")
-    rescue
-    end
     uid = session[:twitter][:uid] if session[:twitter]
-    #user_id = request.cookies['user_id'] unless user_id
-    @like = Like.where(:article_id => params[:id], :user_id => uid).first
     @article = Article.where(:id => params[:id]).first
+    @like = Like.where(:article_id => params[:id], :user_id => uid).first
+    Like.create(:article_id => params[:id], :user_id => uid)
     #if @like.present?
     #  @like.destroy
     #else
-
-    Like.create(:article_id => params[:id], :user_id => uid)
     #end
+
+    if @article.twitter_uid.present?
+      begin
+        puts @article.likes.count
+        user = $client.user(@article.twitter_uid)
+        if @article.likes.count == 10
+          str = "@#{user.screen_name} おめでとうございます！あなたの投稿が#{@article.likes.count}だれうま獲得しました！ "
+          str << "#{$config['host']}/detail?id=#{@article.theme_id} #だれうま"
+          $client.update(str)
+        end
+      rescue
+      end
+    end
     redirect "/detail?id=#{@article.theme_id}"
   end
 
