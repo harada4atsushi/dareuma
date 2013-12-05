@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131203164814) do
+ActiveRecord::Schema.define(version: 20131205163207) do
 
   create_table "articles", force: true do |t|
     t.integer  "theme_id"
@@ -24,9 +24,10 @@ ActiveRecord::Schema.define(version: 20131203164814) do
 
   create_table "likes", force: true do |t|
     t.integer  "article_id"
-    t.string   "user_id"
+    t.string   "twitter_uid"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "cid",         limit: 100
   end
 
   create_table "themes", force: true do |t|

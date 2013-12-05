@@ -6,6 +6,8 @@ class Main < Sinatra::Base
 
   before do
     @auth = session[:twitter]
+    @cid = request.cookies['cid'] || random_str
+    response.set_cookie("cid", @cid)
   end
 
   get '/' do
@@ -14,8 +16,6 @@ class Main < Sinatra::Base
   end
 
   get '/detail' do
-    #user_id = request.cookies['user_id']
-    #response.set_cookie("user_id", random_str) unless user_id
     id = params[:id] ? params[:id] : 1
     @theme = Theme.find(id)
     @articles = Article.where(:theme_id => id).joins("
@@ -35,18 +35,20 @@ class Main < Sinatra::Base
   end
 
   get '/like' do
+    article_id = params[:id]
     uid = session[:twitter][:uid] if session[:twitter]
-    @article = Article.where(:id => params[:id]).first
-    @like = Like.where(:article_id => params[:id], :user_id => uid).first
-    Like.create(:article_id => params[:id], :user_id => uid)
-    #if @like.present?
-    #  @like.destroy
-    #else
-    #end
+    @like = Like.where(:article_id => article_id)
+    @like = @like.where(["cid = ? or twitter_uid = ?", @cid, uid]).first
+    @article = Article.where(:id => article_id).first
+
+    if @like.present?
+      @like.destroy
+    else
+      Like.create(:article_id => article_id, :twitter_uid => uid, :cid => @cid)
+    end
 
     if @article.twitter_uid.present?
       begin
-        puts @article.likes.count
         user = $client.user(@article.twitter_uid)
         if @article.likes.count == 10
           str = "@#{user.screen_name} おめでとうございます！あなたの投稿が#{@article.likes.count}だれうま獲得しました！ "
@@ -94,10 +96,11 @@ class Main < Sinatra::Base
     erb :developers
   end
 
-  def random_str
+  private
+  def random_str(len = 32)
     a = ('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a
     code = (
-      Array.new(32) do
+      Array.new(len) do
         a[rand(a.size)]
       end
       ).join
