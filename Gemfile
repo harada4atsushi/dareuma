@@ -10,3 +10,5 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem "sinatra-contrib", require: "sinatra/contrib/all"
 gem "twitter"
+gem "rspec"
+gem "factory_girl"
