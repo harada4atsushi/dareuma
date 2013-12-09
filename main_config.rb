@@ -8,9 +8,6 @@ class MainConfig < Sinatra::Base
     enable :sessions
     $config = YAML.load_file( 'config.yml' )
 
-    ActiveRecord::Base.configurations = YAML.load_file('database.yml')
-    ActiveRecord::Base.establish_connection('development')
-
     $client = Twitter::REST::Client.new do |cnf|
       cnf.consumer_key = $config["twitter"]["consumer_key"]
       cnf.consumer_secret = $config["twitter"]["consumer_secret"]
