@@ -12,8 +12,8 @@ describe 'Main' do
     before do
       get '/like'
     end
-
     it "likeが登録されること" do
+      like = Factory.create(:like)
       num = Like.count(nil)
       #FactoryGirl.create(:reply)
       #puts Reply.where(nil).to_yaml
