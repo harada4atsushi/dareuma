@@ -3,3 +3,4 @@ config.yml
 .DS_Store
 .bundle
 vendor/bundle/
+vendor/bundler/
