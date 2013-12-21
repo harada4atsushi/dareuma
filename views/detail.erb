@@ -28,14 +28,14 @@
       </div>
       <div class="name_container clearfix">
         <input type="text" name="article[user_name]" placeholder="ニックネームを入力してください">
-        <!--<input type="button" value="投稿する" onclick="window.open('http://twitter.com/share?url=<%=$config["host"]%>/detail?id=<%=@theme.id%>&text=“<%=@theme.subject%>”の意訳をだれうま.comに投稿しました。 #だれうま', 'twitter_tweet', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); submit();"/>-->
+        <!--<input type="button" value="投稿する" onclick="window.open('http://twitter.com/share?url=<%#=$config["host"]%>/detail?id=<%#=@theme.id%>&text=“<%#=@theme.subject%>”の意訳をだれうま.comに投稿しました。 #だれうま', 'twitter_tweet', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); submit();"/>-->
         <input type="button" value="投稿する" onclick="submit();" />
       </div>
     </div>
     <!--
     <div class="post" class="clearfix">
       <div class="textarea_container">
-        <textarea name="article[content]" style="height:70px;" placeholder="140字以内で入力してください">”<%=@theme.subject%>”の意訳をだれうま.comに投稿しました。<%=$config["host"]%>/detail?id=<%=@theme.id%> #だれうま</textarea>
+        <textarea name="article[content]" style="height:70px;" placeholder="140字以内で入力してください">”<%#=@theme.subject%>”の意訳をだれうま.comに投稿しました。<%#=$config["host"]%>/detail?id=<%#=@theme.id%> #だれうま</textarea>
         <input type="hidden" name="article[theme_id]" value="<%= @theme.id %>" />
       </div>
       <div class="name_container clearfix">

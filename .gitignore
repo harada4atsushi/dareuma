@@ -4,3 +4,4 @@ config.yml
 .bundle
 vendor/bundle/
 vendor/bundler/
+log

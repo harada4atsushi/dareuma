@@ -16,7 +16,5 @@ class MainConfig < Sinatra::Base
     end
   end
 
-  after do
-    ActiveRecord::Base.connection.close
-  end
+
 end

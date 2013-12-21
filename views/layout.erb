@@ -30,7 +30,7 @@
             <img src="<%= session[:twitter][:image] %>" /><span><%= session[:twitter][:name][0..10] %><%= "..." if session[:twitter][:name].length > 10 %>&nbsp;<a href="/logout?id=<%#= @theme.id %>">ログアウト</a></span>
             <br />
           <% else %>
-          <a href="#" onclick="$('#login_form').submit();">ログイン</a>
+          <!-- <a href="#" onclick="$('#login_form').submit();">ログイン</a> -->
         <% end %>
       </form>
       </div>
