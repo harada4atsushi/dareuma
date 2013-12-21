@@ -5,3 +5,4 @@ config.yml
 vendor/bundle/
 vendor/bundler/
 log
+tmp
