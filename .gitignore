@@ -6,3 +6,6 @@ vendor/bundle/
 vendor/bundler/
 log
 tmp
+dareuma.db
+dareuma_test.db
+Gemfile.lock

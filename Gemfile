@@ -4,10 +4,11 @@ gem "sinatra"
 gem "shotgun"
 gem 'sinatra-activerecord'
 gem "mysql2"
+gem "sqlite3"
 gem "sinatra-contrib", require: "sinatra/contrib/all"
+gem 'rake'
 
 =begin
-gem 'rake'
 gem 'kaminari', :require => 'kaminari/sinatra'
 gem 'padrino-helpers'
 gem 'omniauth'
