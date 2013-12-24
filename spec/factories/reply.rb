@@ -1,4 +1,4 @@
-Factory.define do
+FactoryGirl.define do
   factory :reply do
     status_id 1
     screen_name "harada4atsushi"

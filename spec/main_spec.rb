@@ -1,5 +1,6 @@
 # coding:utf-8
 require "./spec/spec_helper"
+require "./main"
 
 describe 'Main' do
   include Rack::Test::Methods
@@ -8,15 +9,13 @@ describe 'Main' do
     Sinatra::Application
   end
 
-  describe "get /like" do
+  describe "post /like" do
     before do
-      get '/like'
+      @article = create(:article)
+      post "/like/#{@article.id}"
     end
     it "likeが登録されること" do
-      like = Factory.create(:like)
-      num = Like.count(nil)
-      #FactoryGirl.create(:reply)
-      #puts Reply.where(nil).to_yaml
+      num = Like.where(:article_id => @article.id).count
       num.should == 1
     end
   end

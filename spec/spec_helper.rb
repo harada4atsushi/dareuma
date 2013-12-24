@@ -1,17 +1,20 @@
-require "yaml"
-require "active_record"
-require "twitter"
-require "factory_girl"
+ENV['RACK_ENV'] = 'test'
+
+require 'factory_girl'
+require 'rspec'
 require 'rack/test'
-Bundler.require
+#Bundler.require
 
-ActiveRecord::Base.configurations = YAML.load_file('config.yml')['database']
-ActiveRecord::Base.establish_connection('test')
+FactoryGirl.definition_file_paths = %w{./factories ./test/factories ./spec/factories}
+FactoryGirl.find_definitions
 
-Dir[File.join(File.dirname(__FILE__), "..", "models", "*.rb")].each do |f|
-  require f
-end
-
-Dir[File.join(File.dirname(__FILE__), "..", "factories", "*.rb")].each do |f|
-  require f
+RSpec.configure do |config|
+  config.include FactoryGirl::Syntax::Methods
+  config.before(:all) do
+    ActiveRecord::Base.configurations = YAML.load_file('config.yml')['database']
+    ActiveRecord::Base.establish_connection('test')
+  end
+  config.after(:each) do
+    ActiveRecord::Base.connection.close
+  end
 end

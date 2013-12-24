@@ -9,7 +9,7 @@ Dir[File.join(File.dirname(__FILE__), "models", "**/*.rb")].each {|f| require f 
 
 before do
   ActiveRecord::Base.configurations = YAML.load_file('config.yml')['database']
-  ActiveRecord::Base.establish_connection('development')
+  ActiveRecord::Base.establish_connection(ENV['RACK_ENV'])
 end
 
 get '/' do
@@ -36,8 +36,11 @@ post '/detail' do
   redirect "/detail?id=#{@article.theme_id}"
 end
 
-get '/like' do
+post '/like/:id' do
   article_id = params[:id]
+  like = Like.create(:article_id => article_id)
+  article = like.article
+=begin
   uid = session[:twitter][:uid] if session[:twitter]
   @like = Like.where(:article_id => article_id)
   @like = @like.where(["cid = ? or twitter_uid = ?", @cid, uid]).first
@@ -60,7 +63,8 @@ get '/like' do
     rescue
     end
   end
-  redirect "/detail?id=#{@article.theme_id}"
+=end
+redirect "/detail?id=#{article.theme_id}"
 end
 
 get '/next' do

@@ -61,9 +61,9 @@
           <div class="flL  answer_right">
             <p class="arrow_box">「<%= article.content %>」</p>
             <div class="answer_right_bottom">
-              <input type="button" value="だれうま！" onclick="location.href='/like?id=<%= article.id %>';">
-              <!-- <a href="/like?id=<%= article.id %>">だれうま！</a> -->
-              <span class="arrow_box"><%= article.likes.count %></span> </div>
+              <form action="/like/<%= article.id %>" method="post">
+                <input type="button" value="だれうま！" onclick="this.form.submit();"><span class="arrow_box"><%= article.likes.count %></span> </div>
+              </form>
           </div>
         </li>
       <% end %>
