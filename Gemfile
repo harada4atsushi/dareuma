@@ -9,6 +9,7 @@ gem "sinatra-contrib", require: "sinatra/contrib/all"
 gem 'rake'
 gem "rspec"
 gem "factory_girl"
+gem "database_cleaner"
 
 =begin
 gem 'kaminari', :require => 'kaminari/sinatra'

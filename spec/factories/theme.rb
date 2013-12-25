@@ -1,7 +1,7 @@
 FactoryGirl.define do
-  factory :reply do
-    status_id 1
-    screen_name "harada4atsushi"
+  factory :article do
+    theme
+    content "article content"
     created_at Time.now
     updated_at Time.now
   end

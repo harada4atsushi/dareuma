@@ -64,7 +64,8 @@ post '/like/:id' do
     end
   end
 =end
-redirect "/detail?id=#{article.theme_id}"
+  redirect "/detail?id=#{article.theme_id}"
+  #redirect "/detail"
 end
 
 get '/next' do
