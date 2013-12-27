@@ -9,29 +9,36 @@ describe 'Main' do
     Sinatra::Application
   end
 
-  describe "post /like" do
-    before do
-      @article = create(:article)
-      post "/like/#{@article.id}"
-    end
+  before do
+    @article = create(:article)
+  end
 
-    it "likeが登録されること" do
-      num = Like.where(:article_id => @article.id).count
-      num.should == 1
+  describe "post /like" do
+    it "当該お題の詳細画面に遷移すること" do
+      post "/like/#{@article.id}"
+      last_response.header["Location"].should include("/detail?id=#{@article.theme.id}")
     end
   end
 
-=begin
-  describe "post /like" do
+  describe "like_toggle" do
     before do
-      @article = create(:article)
-      post "/like/#{@article.id}"
+      @cid = random_str
     end
+
     it "likeが登録されること" do
-      num = Like.where(:article_id => @article.id).count
-      num.should == 1
+      like_toggle(@article.id, @cid)
+      cnt = Like.where(:article_id => @article.id, :cid => @cid).count
+      cnt.should == 1
+    end
+
+    context "同じユーザーが2回だれうました場合" do
+      it "likeが解除され0件になること" do
+        like_toggle(@article.id, @cid)
+        like_toggle(@article.id, @cid)
+        cnt = Like.where(:article_id => @article.id, :cid => @cid).count
+        cnt.should == 0
+      end
     end
   end
-=end
 
 end

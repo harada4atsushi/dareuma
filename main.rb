@@ -38,19 +38,15 @@ end
 
 post '/like/:id' do
   article_id = params[:id]
-  like = Like.create(:article_id => article_id)
-  article = like.article
+  article = Article.where(:id => article_id).first
+  cid = random_str
+  like_toggle(article_id, cid)
+
 =begin
   uid = session[:twitter][:uid] if session[:twitter]
-  @like = Like.where(:article_id => article_id)
   @like = @like.where(["cid = ? or twitter_uid = ?", @cid, uid]).first
   @article = Article.where(:id => article_id).first
 
-  if @like.present?
-    @like.destroy
-  else
-    Like.create(:article_id => article_id, :twitter_uid => uid, :cid => @cid)
-  end
 
   if @article.twitter_uid.present?
     begin
@@ -65,8 +61,9 @@ post '/like/:id' do
   end
 =end
   redirect "/detail?id=#{article.theme_id}"
-  #redirect "/detail"
 end
+
+
 
 get '/next' do
   @theme = Theme.where("id > ?", params[:id]).first
@@ -85,6 +82,26 @@ end
 after do
   ActiveRecord::Base.connection.close
 end
+
+private
+def like_toggle(article_id, cid)
+  like = Like.where(:article_id => article_id, :cid => cid).first
+  if like.present?
+    like.destroy
+  else
+    Like.create(:article_id => article_id, :cid => cid)
+  end
+end
+
+def random_str(len = 32)
+  a = ('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a
+  code = (
+    Array.new(len) do
+      a[rand(a.size)]
+    end
+    ).join
+end
+
 
 =begin
 
@@ -131,14 +148,6 @@ class Main < Sinatra::Base
 
 
 
-  private
-  def random_str(len = 32)
-    a = ('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a
-    code = (
-      Array.new(len) do
-        a[rand(a.size)]
-      end
-      ).join
-  end
+
 end
 =end
