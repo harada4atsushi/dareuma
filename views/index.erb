@@ -24,7 +24,7 @@
 
     <ul id="container" class="clearfix">
       <% @themes.each do |theme| %>
-        <li class="item"><a href="/detail?id=<%= theme.id %>"><%= theme.subject %></a></li>
+        <li class="item"><a href="/theme/<%= theme.id %>"><%= theme.subject %></a></li>
       <% end %>
     </ul>
   </div>

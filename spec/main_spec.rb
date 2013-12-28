@@ -11,12 +11,29 @@ describe 'Main' do
 
   before do
     @article = create(:article)
+    @theme = @article.theme
+  end
+
+  describe "get /theme" do
+    it "お題画面に遷移すること" do
+      get "/theme/#{@theme.id}"
+      expect(last_response.body).to include(@theme.subject)
+    end
+  end
+
+  describe "post /theme" do
+    it "お題画面に遷移すること" do
+      post "/theme", {:article => {
+        :theme_id => @theme.id
+      }}
+      last_response.header["Location"].should include("/theme/#{@theme.id}")
+    end
   end
 
   describe "post /like" do
-    it "当該お題の詳細画面に遷移すること" do
+    it "当該お題の画面に遷移すること" do
       post "/like/#{@article.id}"
-      last_response.header["Location"].should include("/detail?id=#{@article.theme.id}")
+      last_response.header["Location"].should include("/theme/#{@article.theme.id}")
     end
   end
 
@@ -32,7 +49,7 @@ describe 'Main' do
     end
 
     it "10件だれうまされるとTwitterでリプライを投げること" do
-
+      #10.times
     end
 
     context "同じユーザーが2回だれうました場合" do
@@ -58,5 +75,4 @@ describe 'Main' do
       end
     end
   end
-
 end

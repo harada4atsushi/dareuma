@@ -12,40 +12,40 @@ get '/' do
   erb :index
 end
 
-get '/detail' do
+get '/theme/:id' do
   id = params[:id] ? params[:id] : 1
   @theme = Theme.find(id)
   @articles = Article.where(:theme_id => id).joins("
     left outer join (select count(*) as likes_count, article_id from likes group by article_id) as likes on articles.id = likes.article_id")
     .order("likes_count desc")
   @arts = Article.where(nil)
-  erb :detail
+  erb :theme
 end
 
-post '/detail' do
+post '/theme' do
   #user_id = request.cookies['user_id'] unless user_id
   @article = Article.new(params[:article])
   @article.twitter_uid = session[:twitter][:uid] if session[:twitter]
   @article.image = session[:twitter][:image] if session[:twitter]
   @article.save
-  redirect "/detail?id=#{@article.theme_id}"
+  redirect "/theme/#{@article.theme_id}"
 end
 
 post '/like/:id' do
   article_id = params[:id]
   article = Article.where(:id => article_id).first
   dareuma(article_id, session[:user])
-  redirect "/detail?id=#{article.theme_id}"
+  redirect "/theme/#{article.theme_id}"
 end
 
 get '/next' do
   @theme = Theme.where("id > ?", params[:id]).first
-  redirect @theme ? "/detail?id=#{@theme.id}" : "/"
+  redirect @theme ? "/theme/#{@theme.id}" : "/"
 end
 
 get '/prev' do
   @theme = Theme.where("id < ?", params[:id]).first
-  redirect @theme ? "/detail?id=#{@theme.id}" : "/"
+  redirect @theme ? "/theme/#{@theme.id}" : "/"
 end
 
 get "/developers" do

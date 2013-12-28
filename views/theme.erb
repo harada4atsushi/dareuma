@@ -15,12 +15,12 @@
     <div id="social_btns" style="text-align:center;">
       <a href="https://twitter.com/share" class="twitter-share-button" data-text="この英文を誰かうまいこと意訳してください。「<%= @theme.subject %>」" data-via="dare_uma_com" data-lang="ja" data-hashtags="だれうま">ツイート</a>
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-      <a href="http://b.hatena.ne.jp/entry/http://dare-uma.com/detail?id=<%= @theme.id %>" class="hatena-bookmark-button" data-hatena-bookmark-title="れうま！｜その足りない頭で気の利いた和訳でも作ってみろっての！" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
-      <div class="fb-like" data-href="http://dare-uma.com/detail?id=<%= @theme.id %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
+      <a href="http://b.hatena.ne.jp/entry/http://dare-uma.com/theme/<%= @theme.id %>" class="hatena-bookmark-button" data-hatena-bookmark-title="れうま！｜その足りない頭で気の利いた和訳でも作ってみろっての！" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+      <div class="fb-like" data-href="http://dare-uma.com/theme/<%= @theme.id %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
     </div>
     <h2 id="theme_subject"><%= @theme.subject %></h2>
   </div>
-  <form action="/detail" method="post">
+  <form action="/theme" method="post">
     <div class="post" class="clearfix">
       <div class="textarea_container">
         <textarea name="article[content]" placeholder="140字以内で入力してください"></textarea>
@@ -54,7 +54,7 @@
             <% if article.image %>
               <img alt=" " src="<%= article.image %>" style="width:60px;">
             <% else %>
-              <img alt=" " src="assets/img/img_user.png" style="width:60px;">
+              <img alt=" " src="/assets/img/img_user.png" style="width:60px;">
               <% end %>
             <p class="username"><%= article.user_name %></p>
           </div>
