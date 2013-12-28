@@ -22,21 +22,35 @@ describe 'Main' do
 
   describe "like_toggle" do
     before do
-      @cid = random_str
+      @user = {:cid => random_str}
     end
 
     it "likeが登録されること" do
-      like_toggle(@article.id, @cid)
-      cnt = Like.where(:article_id => @article.id, :cid => @cid).count
+      like_toggle(@article.id, @user)
+      cnt = Like.where(:article_id => @article.id, :cid => @user[:cid]).count
       cnt.should == 1
     end
 
     context "同じユーザーが2回だれうました場合" do
       it "likeが解除され0件になること" do
-        like_toggle(@article.id, @cid)
-        like_toggle(@article.id, @cid)
-        cnt = Like.where(:article_id => @article.id, :cid => @cid).count
+        like_toggle(@article.id, @user)
+        like_toggle(@article.id, @user)
+        cnt = Like.where(:article_id => @article.id, :cid => @user[:cid]).count
         cnt.should == 0
+      end
+    end
+
+    context "Twitterログインしている場合" do
+      before do
+        @user[:twitter_uid] = random_str
+      end
+      context "同じユーザーが2回だれうました場合" do
+        it "likeが解除され0件になること" do
+          like_toggle(@article.id, @user)
+          like_toggle(@article.id, @user)
+          cnt = Like.where(:article_id => @article.id, :twitter_uid => @user[:twitter_uid]).count
+          cnt.should == 0
+        end
       end
     end
   end

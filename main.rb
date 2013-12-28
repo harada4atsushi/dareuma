@@ -1,15 +1,10 @@
 # coding:utf-8
-$:.unshift File.dirname(__FILE__) # カレントディレクトリをロードパスに追加
-require "sinatra"
-require 'sinatra/activerecord'
-require "sinatra/content_for"
-
-# modelクラスを全てrequire
-Dir[File.join(File.dirname(__FILE__), "models", "**/*.rb")].each {|f| require f }
+require './main_config'
 
 before do
   ActiveRecord::Base.configurations = YAML.load_file('config.yml')['database']
   ActiveRecord::Base.establish_connection(ENV['RACK_ENV'])
+  session[:user] = {:cid => random_str} unless session[:user].present?
 end
 
 get '/' do
@@ -39,8 +34,7 @@ end
 post '/like/:id' do
   article_id = params[:id]
   article = Article.where(:id => article_id).first
-  cid = random_str
-  like_toggle(article_id, cid)
+  like_toggle(article_id, session[:user])
 
 =begin
   uid = session[:twitter][:uid] if session[:twitter]
@@ -84,12 +78,24 @@ after do
 end
 
 private
-def like_toggle(article_id, cid)
-  like = Like.where(:article_id => article_id, :cid => cid).first
+def like_toggle(article_id, user)
+  data = {:article_id => article_id}
+  likes = Like.where(:article_id => article_id)
+  if user[:twitter_uid].present?
+    likes = likes.where(:twitter_uid => user[:twitter_uid])
+    data[:twitter_uid] = user[:twitter_uid]
+  elsif user[:cid].present?
+    likes = likes.where(:cid => user[:cid])
+    data[:cid] = user[:cid]
+  else
+    return
+  end
+  like = likes.first
+
   if like.present?
     like.destroy
   else
-    Like.create(:article_id => article_id, :cid => cid)
+    Like.create(data)
   end
 end
 
