@@ -34,30 +34,9 @@ end
 post '/like/:id' do
   article_id = params[:id]
   article = Article.where(:id => article_id).first
-  like_toggle(article_id, session[:user])
-
-=begin
-  uid = session[:twitter][:uid] if session[:twitter]
-  @like = @like.where(["cid = ? or twitter_uid = ?", @cid, uid]).first
-  @article = Article.where(:id => article_id).first
-
-
-  if @article.twitter_uid.present?
-    begin
-      user = $client.user(@article.twitter_uid)
-      if @article.likes.count == 10
-        str = "@#{user.screen_name} おめでとうございます！あなたの投稿が#{@article.likes.count}だれうま獲得しました！ "
-        str << "#{$config['host']}/detail?id=#{@article.theme_id} #だれうま"
-        $client.update(str)
-      end
-    rescue
-    end
-  end
-=end
+  dareuma(article_id, session[:user])
   redirect "/detail?id=#{article.theme_id}"
 end
-
-
 
 get '/next' do
   @theme = Theme.where("id > ?", params[:id]).first
@@ -78,7 +57,7 @@ after do
 end
 
 private
-def like_toggle(article_id, user)
+def dareuma(article_id, user)
   data = {:article_id => article_id}
   likes = Like.where(:article_id => article_id)
   if user[:twitter_uid].present?
@@ -91,6 +70,20 @@ def like_toggle(article_id, user)
     return
   end
   like = likes.first
+
+=begin
+if @article.twitter_uid.present?
+    begin
+      user = $client.user(@article.twitter_uid)
+      if @article.likes.count == 10
+        str = "@#{user.screen_name} おめでとうございます！あなたの投稿が#{@article.likes.count}だれうま獲得しました！ "
+        str << "#{$config['host']}/detail?id=#{@article.theme_id} #だれうま"
+        $client.update(str)
+      end
+    rescue
+    end
+  end
+=end
 
   if like.present?
     like.destroy

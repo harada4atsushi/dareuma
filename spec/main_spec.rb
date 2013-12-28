@@ -20,21 +20,25 @@ describe 'Main' do
     end
   end
 
-  describe "like_toggle" do
+  describe "dareuma" do
     before do
       @user = {:cid => random_str}
     end
 
     it "likeが登録されること" do
-      like_toggle(@article.id, @user)
+      dareuma(@article.id, @user)
       cnt = Like.where(:article_id => @article.id, :cid => @user[:cid]).count
       cnt.should == 1
     end
 
+    it "10件だれうまされるとTwitterでリプライを投げること" do
+
+    end
+
     context "同じユーザーが2回だれうました場合" do
       it "likeが解除され0件になること" do
-        like_toggle(@article.id, @user)
-        like_toggle(@article.id, @user)
+        dareuma(@article.id, @user)
+        dareuma(@article.id, @user)
         cnt = Like.where(:article_id => @article.id, :cid => @user[:cid]).count
         cnt.should == 0
       end
@@ -46,8 +50,8 @@ describe 'Main' do
       end
       context "同じユーザーが2回だれうました場合" do
         it "likeが解除され0件になること" do
-          like_toggle(@article.id, @user)
-          like_toggle(@article.id, @user)
+          dareuma(@article.id, @user)
+          dareuma(@article.id, @user)
           cnt = Like.where(:article_id => @article.id, :twitter_uid => @user[:twitter_uid]).count
           cnt.should == 0
         end
