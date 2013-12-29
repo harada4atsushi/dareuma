@@ -30,7 +30,7 @@
             <img src="<%= session[:twitter][:image] %>" /><span><%= session[:twitter][:name][0..10] %><%= "..." if session[:twitter][:name].length > 10 %>&nbsp;<a href="/logout?id=<%#= @theme.id %>">ログアウト</a></span>
             <br />
           <% else %>
-          <!-- <a href="#" onclick="$('#login_form').submit();">ログイン</a> -->
+          <!-- <a href="javascript:void(0);" onclick="$('#login_form').submit();">ログイン</a> -->
         <% end %>
       </form>
       </div>
@@ -41,7 +41,7 @@
 
   <footer>
     <div class="container">
-      <a href="developers">作った人情報</a><br />
+      <a href="/developers">作った人情報</a><br />
       Copyright (C) 2013 Y.Ohori and A.Harada All Rights Reserved.
     </div>
   </footer>

@@ -2,8 +2,6 @@
 require './main_config'
 
 before do
-  ActiveRecord::Base.configurations = YAML.load_file('config.yml')['database']
-  ActiveRecord::Base.establish_connection(ENV['RACK_ENV'])
   session[:user] = {:cid => random_str} unless session[:user].present?
 end
 
@@ -48,13 +46,31 @@ get '/prev' do
   redirect @theme ? "/theme/#{@theme.id}" : "/"
 end
 
+get "/auth/:provider/callback" do
+=begin
+  back_url = request.cookies['back_url'] || "/"
+  auth = request.env["omniauth.auth"]
+  session[:twitter] = {
+    :uid => auth[:uid],
+    :name => auth[:info][:name],
+    :image => auth[:info][:image],
+  }
+  redirect back_url
+=end
+end
+
+post "/login" do
+  response.set_cookie("back_url", params[:back_url])
+  redirect "/auth/twitter"
+end
+
 get "/developers" do
   erb :developers
 end
 
-after do
-  ActiveRecord::Base.connection.close
-end
+#after do
+#  ActiveRecord::Base.connection.close
+#end
 
 private
 def dareuma(article_id, user)
@@ -103,6 +119,13 @@ end
 
 
 =begin
+ # helpersで関数まとめられる？
+  helpers do
+    # define a current_user method, so we can be sure if an user is authenticated
+    def current_user
+      !session[:uid].nil?
+    end
+  end
 
 # Gemfileに定義されているgemを一括require
 Bundler.require
@@ -124,21 +147,7 @@ class Main < Sinatra::Base
   end
 
 
-  get "/auth/:provider/callback" do
-    back_url = request.cookies['back_url'] || "/"
-    auth = request.env["omniauth.auth"]
-    session[:twitter] = {
-      :uid => auth[:uid],
-      :name => auth[:info][:name],
-      :image => auth[:info][:image],
-    }
-    redirect back_url
-  end
 
-  post "/login" do
-    response.set_cookie("back_url", params[:back_url])
-    redirect "/auth/twitter"
-  end
 
   get "/logout" do
     session[:twitter] = nil

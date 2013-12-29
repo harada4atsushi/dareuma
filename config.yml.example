@@ -1,4 +1,16 @@
+database:
+  development:
+    adapter: sqlite3
+    database: dareuma.db
+  production:
+    adapter: sqlite3
+    database: dareuma.db
+  test:
+    adapter: sqlite3
+    database: dareuma_test.db
 twitter:
-  consumer_key: "cayHHfcyPBlN6m2F4katw"
-  consumer_secret: "4NMMDLZt8EZEhb0ZLsN4bH7ghEZYr6olPBuchNYU"
+  consumer_key: "mcFfYXgIIiqcf3TydeymhQ"
+  consumer_secret: "rN44kZnTMDlc9ICKEsKefCucIFTUCcIjnojWCT0Y5cg"
+  oauth_token: "2228606792-78DSphZYwrq7vxTFRacZZJwtLkmmnGBgAuNGYxx"
+  oauth_token_secret: "5zFSIWt5mXgWRdv6o0fXdG3Ce8Hoj3QxuCBrek9aB5kRG"
 host: "http://localhost:9292"

@@ -10,11 +10,11 @@ gem 'rake'
 gem "rspec"
 gem "factory_girl"
 gem "database_cleaner"
+gem 'omniauth-twitter'
 
 =begin
 gem 'kaminari', :require => 'kaminari/sinatra'
 gem 'padrino-helpers'
 gem 'omniauth'
-gem 'omniauth-twitter'
 gem "twitter"
 =end

@@ -3,19 +3,26 @@ $:.unshift File.dirname(__FILE__) # カレントディレクトリをロード�
 require "sinatra"
 require 'sinatra/activerecord'
 require "sinatra/content_for"
+require 'omniauth-twitter'
 
-enable :sessions
-set :session_secret, 'hcJe1r8wVp'
+configure do
+  enable :sessions
+  set :session_secret, 'hcJe1r8wVp'
 
-# modelクラスを全てrequire
-Dir[File.join(File.dirname(__FILE__), "models", "**/*.rb")].each {|f| require f }
+  config = YAML.load_file('config.yml')
+  ActiveRecord::Base.configurations = config['database']
+  ActiveRecord::Base.establish_connection(ENV['RACK_ENV'])
 
+  # modelクラスを全てrequire
+  Dir[File.join(File.dirname(__FILE__), "models", "**/*.rb")].each {|f| require f }
+
+  use OmniAuth::Builder do
+    provider :twitter, config["twitter"]["consumer_key"], config["twitter"]["consumer_secret"]
+  end
+end
 
 =begin
 class MainConfig < Sinatra::Base
-  use OmniAuth::Builder do
-    provider :twitter, $config["twitter"]["consumer_key"], $config["twitter"]["consumer_secret"]
-  end
 
   configure do
     enable :sessions

@@ -75,4 +75,10 @@ describe 'Main' do
       end
     end
   end
+
+  describe "get /auth/:provider/callback" do
+    it "sessionにTwitterアカウント情報がセットされること" do
+    end
+  end
+
 end
