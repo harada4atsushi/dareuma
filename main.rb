@@ -1,5 +1,6 @@
 # coding:utf-8
 require './main_config'
+require './helper.rb'
 
 before do
   session[:user] = {:cid => random_str} unless session[:user].present?
@@ -29,6 +30,12 @@ post '/theme' do
   redirect "/theme/#{@article.theme_id}"
 end
 
+delete '/article/:id' do
+  article = Article.where(:id => params[:id]).first
+  article.destroy
+  redirect "/theme/#{article.theme_id}"
+end
+
 post '/like/:id' do
   article_id = params[:id]
   article = Article.where(:id => article_id).first
@@ -47,16 +54,14 @@ get '/prev' do
 end
 
 get "/auth/:provider/callback" do
-=begin
-  back_url = request.cookies['back_url'] || "/"
   auth = request.env["omniauth.auth"]
   session[:twitter] = {
     :uid => auth[:uid],
     :name => auth[:info][:name],
     :image => auth[:info][:image],
   }
+  back_url = request.cookies['back_url'] || "/"
   redirect back_url
-=end
 end
 
 post "/login" do
@@ -64,23 +69,30 @@ post "/login" do
   redirect "/auth/twitter"
 end
 
+get "/logout" do
+  session[:twitter] = nil
+  if params[:id].present?
+    redirect "/theme/#{params[:id]}"
+  else
+    redirect "/"
+  end
+end
+
 get "/developers" do
   erb :developers
 end
 
-#after do
-#  ActiveRecord::Base.connection.close
-#end
-
 private
 def dareuma(article_id, user)
   data = {:article_id => article_id}
-  likes = Like.where(:article_id => article_id)
+  article = Article.where(:id => article_id).first
+  likes = article.likes
+
   if user[:twitter_uid].present?
-    likes = likes.where(:twitter_uid => user[:twitter_uid])
+    likes =article.likes.where(:twitter_uid => user[:twitter_uid])
     data[:twitter_uid] = user[:twitter_uid]
   elsif user[:cid].present?
-    likes = likes.where(:cid => user[:cid])
+    likes = article.likes.where(:cid => user[:cid])
     data[:cid] = user[:cid]
   else
     return
@@ -88,7 +100,7 @@ def dareuma(article_id, user)
   like = likes.first
 
 =begin
-if @article.twitter_uid.present?
+  if article.twitter_uid.present?
     begin
       user = $client.user(@article.twitter_uid)
       if @article.likes.count == 10
@@ -96,7 +108,8 @@ if @article.twitter_uid.present?
         str << "#{$config['host']}/detail?id=#{@article.theme_id} #だれうま"
         $client.update(str)
       end
-    rescue
+    rescue => e
+      #sputs e
     end
   end
 =end
@@ -149,10 +162,6 @@ class Main < Sinatra::Base
 
 
 
-  get "/logout" do
-    session[:twitter] = nil
-    redirect "/detail?id=#{params[:id]}"
-  end
 
 
 

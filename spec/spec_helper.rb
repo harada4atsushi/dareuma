@@ -22,3 +22,7 @@ RSpec.configure do |config|
     ActiveRecord::Base.connection.close
   end
 end
+
+def session
+  last_request.env['rack.session']
+end

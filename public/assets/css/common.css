@@ -201,6 +201,13 @@ footer a {
 #answer input[type="button"]:hover {
 	background-color: #3a4cbd;
 }
+#answer input[type="button"].del_button {
+	width: 60px;
+	background-color: #CB0202;
+}
+#answer input[type="button"].del_button:hover {
+	background-color: #DE0000;
+}
 .arrow_box {
 	position: relative;
 	background: #ffffff;

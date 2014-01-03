@@ -25,12 +25,14 @@
       <p class="header_logo flL"><a href="/"><img alt="だれうま！.com" src="/assets/img/img_logo.png"></a></p>
       <div class="header_login flR">
         <form action="/login" method="post" id="login_form">
-          <input type="hidden" name="back_url" value="<%= request.path_info %>?<%= request.query_string %>" />
+          <input type="hidden" name="back_url" value="<%= request.path_info %>" />
           <% if session[:twitter].present? %>
-            <img src="<%= session[:twitter][:image] %>" /><span><%= session[:twitter][:name][0..10] %><%= "..." if session[:twitter][:name].length > 10 %>&nbsp;<a href="/logout?id=<%#= @theme.id %>">ログアウト</a></span>
+            <img src="<%= session[:twitter][:image] %>" /><span><%= session[:twitter][:name][0..10] %><%= "..." if session[:twitter][:name].length > 10 %>&nbsp;<a href="/logout?id=<%= @theme.try(:id) %>">ログアウト</a></span>
             <br />
           <% else %>
-          <!-- <a href="javascript:void(0);" onclick="$('#login_form').submit();">ログイン</a> -->
+          <a href="javascript:void(0);" onclick="$('#login_form').submit();">
+            <img src="/assets/img/icon/twitter.png" style="width:35px;" />Twitterでログイン
+          </a>
         <% end %>
       </form>
       </div>
@@ -48,6 +50,7 @@
   <div id="container" class="js-masonry"  data-masonry-options='{ "columnWidth": 200, "itemSelector": ".item" }'></div>
   </body>
   <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/assets/js/common.js"></script>
   <script type="text/javascript" src="/assets/js/masonry.pkgd.min.js"></script>
   <script type="text/javascript">
   var $container = $('#container');

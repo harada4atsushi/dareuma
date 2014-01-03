@@ -46,7 +46,7 @@
   </form>
   <div id="answer">
     <div class="answer_container">
-      <h3>回答一覧</h3>
+      <h3>回答</h3>
       <ul>
       <% @articles.each do |article| %>
         <li class="clearfix">
@@ -62,8 +62,14 @@
             <p class="arrow_box">「<%= article.content %>」</p>
             <div class="answer_right_bottom">
               <form action="/like/<%= article.id %>" method="post">
-                <input type="button" value="だれうま！" onclick="this.form.submit();"><span class="arrow_box"><%= article.likes.count %></span> </div>
+                <input type="button" value="だれうま！" onclick="this.form.submit();"><span class="arrow_box"><%= article.likes.count %></span>
               </form>
+              <% if admin? %>
+                <form action="/article/<%= article.id %>" method="post">
+                  <input type="hidden" name="_method" value="delete" />
+                  <input type="button" value="削除" class="del_button" onclick="this.form.submit();" />
+                </form>
+              <% end %>
           </div>
         </li>
       <% end %>
