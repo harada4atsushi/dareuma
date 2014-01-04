@@ -55,7 +55,7 @@
   <script type="text/javascript">
   var $container = $('#container');
   // initialize
-  $($container.masonry({
+  $.event.add(window, "load", $container.masonry({
     columnWidth: 213,
     itemSelector: '.item'
   }));
