@@ -6,8 +6,13 @@ before do
   session[:user] = {:cid => random_str} unless session[:user].present?
 end
 
+####################################################################
+#
+# フロント画面
+#
+####################################################################
 get '/' do
-  @themes = Theme.where(nil).order(:id)
+  @themes = Theme.where(nil).order("order_date desc, created_at desc, id desc")
   erb :index
 end
 
@@ -82,6 +87,45 @@ get "/developers" do
   erb :developers
 end
 
+####################################################################
+#
+# 管理画面
+#
+####################################################################
+["/admin/*", "/admin/", "/admin"].each do |route|
+  before route do
+    redirect "/" unless admin?
+  end
+end
+
+get "/admin" do
+  redirect "/admin/themes"
+end
+
+get "/admin/themes" do
+  @themes = Theme.where(nil).order("order_date desc, created_at desc, id desc")
+  erb "/admin/themes/index".to_sym
+end
+
+post "/admin/themes/:id" do
+  theme = Theme.where(:id => params[:id]).first
+  if theme.update_attributes(params[:theme])
+    if params[:file]
+      save_path = "./public/system/images/#{params[:id]}"
+      File.open(save_path, 'wb') do |f|
+        f.write params[:file][:tempfile].read
+      end
+    end
+  end
+  redirect "/admin/themes"
+end
+
+
+####################################################################
+#
+# functions
+#
+####################################################################
 private
 def dareuma(article_id, user)
   data = {:article_id => article_id}

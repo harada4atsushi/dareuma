@@ -9,3 +9,4 @@ tmp
 dareuma.db
 dareuma_test.db
 Gemfile.lock
+public/system

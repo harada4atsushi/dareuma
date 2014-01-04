@@ -20,11 +20,15 @@
 </div>
 <section id="contents" class="container">
   <div id="toppage">
+    <!-- <a href="#">新着順</a>&nbsp;&nbsp;<a href="#">人気順</a><br /><br /> -->
     <h1>お題一覧</h1>
 
     <ul id="container" class="clearfix">
       <% @themes.each do |theme| %>
-        <li class="item"><a href="/theme/<%= theme.id %>"><%= theme.subject %></a></li>
+        <li class="item">
+          <a href="/theme/<%= theme.id %>"><%= theme.subject %><br />
+          <% if theme.img_exist? %><img src="/system/images/<%= theme.id %>" style="width:100%; margin-top:20px;" /><% end %></a>
+        </li>
       <% end %>
     </ul>
   </div>

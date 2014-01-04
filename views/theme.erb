@@ -19,6 +19,7 @@
       <div class="fb-like" data-href="http://dare-uma.com/theme/<%= @theme.id %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
     </div>
     <h2 id="theme_subject"><%= @theme.subject %></h2>
+    <% if @theme.img_exist? %><img src="/system/images/<%= @theme.id %>" style="width:100%; margin-top:20px;" /><% end %>
   </div>
   <form action="/theme" method="post">
     <div class="post" class="clearfix">

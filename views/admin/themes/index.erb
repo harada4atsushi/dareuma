@@ -1,0 +1,21 @@
+<table border="1">
+  <tr>
+    <th>お題</th>
+    <th>画像</th>
+    <th>新着並替え用日付</th>
+    <th>操作</th>
+  </tr>
+  <% @themes.each do |theme| %>
+    <form action="/admin/themes/<%= theme.id %>" method="post" enctype="multipart/form-data">
+    <tr>
+      <td><%= theme.subject %></td>
+      <td>
+        <img src="/system/images/<%= theme.id %>" style="height:60px;" />
+        <input type="file" name="file" />
+      </td>
+      <td><input type="text" name="theme[order_date]" value="<%= theme.order_date %>" /></td>
+      <td><input type="submit" name="submit" value="更新" /></td>
+    </tr>
+    </form>
+  <% end %>
+</table>
