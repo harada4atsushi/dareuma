@@ -60,7 +60,7 @@
             <p class="username"><%= article.user_name %></p>
           </div>
           <div class="flL  answer_right">
-            <p class="arrow_box">「<%= article.content %>」</p>
+            <p class="arrow_box"><%= article.content %></p>
             <div class="answer_right_bottom">
               <form action="/like/<%= article.id %>" method="post">
                 <input type="button" value="だれうま！" onclick="this.form.submit();"><span class="arrow_box"><%= article.likes.count %></span>
