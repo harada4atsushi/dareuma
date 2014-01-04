@@ -75,11 +75,10 @@
         </li>
       <% end %>
       </ul>
+      <div style="text-align:center;margin-top:60px;"><%= paginate @articles %></div>
     </div>
   </div>
   <div id="nav" class="clearfix">
     <a class="flL" href="/prev?id=<%= @theme.id %>">&lt;&nbsp;前のお題</a><a class="flR" href="/next?id=<%= @theme.id %>">次のお題&nbsp;&gt;</a>
-    <%#= link_to_next_page @articles, 'Next Page' %>
-    <%#= paginate @arts %>
   </div>
 </section>

@@ -6,6 +6,7 @@ before do
   session[:user] = {:cid => random_str} unless session[:user].present?
 end
 
+
 ####################################################################
 #
 # フロント画面
@@ -21,8 +22,7 @@ get '/theme/:id' do
   @theme = Theme.find(id)
   @articles = Article.where(:theme_id => id).joins("
     left outer join (select count(*) as likes_count, article_id from likes group by article_id) as likes on articles.id = likes.article_id")
-    .order("likes_count desc")
-  @arts = Article.where(nil)
+    .order("likes_count desc").page(params[:page])
   erb :theme
 end
 
